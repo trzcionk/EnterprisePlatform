@@ -1,14 +1,14 @@
-version: '3.9'
+version: "3.9"
 services:
   gateway:
     build: ./src/GatewayService
     ports:
-      - ""8080:80""
+      - "8080:80"
   auth:
     build: ./src/AuthService
     ports:
-      - ""8081:80""
+      - "8081:80"
   processor:
     build: ./src/DataProcessorService
     ports:
-      - ""8082:80""
+      - "8082:80"
