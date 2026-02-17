@@ -3,14 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9C19F4CB-A575-4BEC-AE8E-6C7C94A97141}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GatewayService", "src\GatewayService\GatewayService.csproj", "{2FBC21B4-8143-4856-B2D2-25BBD62418CA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService", "src\AuthService\AuthService.csproj", "{54155227-DA25-4C35-A57F-6774C8410E23}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProcessorService", "src\DataProcessorService\DataProcessorService.csproj", "{26E2D506-7337-41A8-99C1-308F95C61A9D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,24 +10,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2FBC21B4-8143-4856-B2D2-25BBD62418CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FBC21B4-8143-4856-B2D2-25BBD62418CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FBC21B4-8143-4856-B2D2-25BBD62418CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FBC21B4-8143-4856-B2D2-25BBD62418CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54155227-DA25-4C35-A57F-6774C8410E23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54155227-DA25-4C35-A57F-6774C8410E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54155227-DA25-4C35-A57F-6774C8410E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54155227-DA25-4C35-A57F-6774C8410E23}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26E2D506-7337-41A8-99C1-308F95C61A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26E2D506-7337-41A8-99C1-308F95C61A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26E2D506-7337-41A8-99C1-308F95C61A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26E2D506-7337-41A8-99C1-308F95C61A9D}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{2FBC21B4-8143-4856-B2D2-25BBD62418CA} = {9C19F4CB-A575-4BEC-AE8E-6C7C94A97141}
-		{54155227-DA25-4C35-A57F-6774C8410E23} = {9C19F4CB-A575-4BEC-AE8E-6C7C94A97141}
-		{26E2D506-7337-41A8-99C1-308F95C61A9D} = {9C19F4CB-A575-4BEC-AE8E-6C7C94A97141}
 	EndGlobalSection
 EndGlobal
