@@ -1,7 +1,15 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace GatewayService.Controllers
 {
-    public class StatusController
+    [ApiController]
+    [Route("api/status")]
+    public class StatusController : ControllerBase
     {
-        public string GetStatus() => "Running";
+        [HttpGet]
+        public IActionResult GetStatus()
+        {
+            return Ok("Running");
+        }
     }
 }
