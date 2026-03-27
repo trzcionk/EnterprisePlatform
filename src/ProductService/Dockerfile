@@ -3,8 +3,8 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
-COPY ../ProductService.Dal ./ProductService.Dal
-COPY . ./ProductService
+COPY ProductService.Dal ./ProductService.Dal
+COPY ProductService ./ProductService
 WORKDIR /src/ProductService
 RUN dotnet publish "ProductService.csproj" -c Release -o /app/publish
 
