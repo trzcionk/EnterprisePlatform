@@ -1,0 +1,212 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\src\\pt_vs\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{376758D6-B138-4ACD-9F95-EFF091DFA33B}|src\\AuthService\\AuthService.csproj|d:\\src\\pt_vs\\src\\authservice\\controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{376758D6-B138-4ACD-9F95-EFF091DFA33B}|src\\AuthService\\AuthService.csproj|solutionrelative:src\\authservice\\controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DFBA25D0-F431-436C-82B3-78EE1CF99B50}|src\\DataProcessorService\\DataProcessorService.csproj|d:\\src\\pt_vs\\src\\dataprocessorservice\\controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DFBA25D0-F431-436C-82B3-78EE1CF99B50}|src\\DataProcessorService\\DataProcessorService.csproj|solutionrelative:src\\dataprocessorservice\\controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76767CBA-3518-430C-90C7-936DF8528F7D}|src\\GatewayService\\GatewayService.csproj|d:\\src\\pt_vs\\src\\gatewayservice\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{76767CBA-3518-430C-90C7-936DF8528F7D}|src\\GatewayService\\GatewayService.csproj|solutionrelative:src\\gatewayservice\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DFBA25D0-F431-436C-82B3-78EE1CF99B50}|src\\DataProcessorService\\DataProcessorService.csproj|d:\\src\\pt_vs\\src\\dataprocessorservice\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{DFBA25D0-F431-436C-82B3-78EE1CF99B50}|src\\DataProcessorService\\DataProcessorService.csproj|solutionrelative:src\\dataprocessorservice\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76767CBA-3518-430C-90C7-936DF8528F7D}|src\\GatewayService\\GatewayService.csproj|d:\\src\\pt_vs\\src\\gatewayservice\\controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76767CBA-3518-430C-90C7-936DF8528F7D}|src\\GatewayService\\GatewayService.csproj|solutionrelative:src\\gatewayservice\\controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76767CBA-3518-430C-90C7-936DF8528F7D}|src\\GatewayService\\GatewayService.csproj|d:\\src\\pt_vs\\src\\gatewayservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76767CBA-3518-430C-90C7-936DF8528F7D}|src\\GatewayService\\GatewayService.csproj|solutionrelative:src\\gatewayservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76767CBA-3518-430C-90C7-936DF8528F7D}|src\\GatewayService\\GatewayService.csproj|d:\\src\\pt_vs\\src\\gatewayservice\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{76767CBA-3518-430C-90C7-936DF8528F7D}|src\\GatewayService\\GatewayService.csproj|solutionrelative:src\\gatewayservice\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{376758D6-B138-4ACD-9F95-EFF091DFA33B}|src\\AuthService\\AuthService.csproj|d:\\src\\pt_vs\\src\\authservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{376758D6-B138-4ACD-9F95-EFF091DFA33B}|src\\AuthService\\AuthService.csproj|solutionrelative:src\\authservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DFBA25D0-F431-436C-82B3-78EE1CF99B50}|src\\DataProcessorService\\DataProcessorService.csproj|d:\\src\\pt_vs\\src\\dataprocessorservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DFBA25D0-F431-436C-82B3-78EE1CF99B50}|src\\DataProcessorService\\DataProcessorService.csproj|solutionrelative:src\\dataprocessorservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DFBA25D0-F431-436C-82B3-78EE1CF99B50}|src\\DataProcessorService\\DataProcessorService.csproj|d:\\src\\pt_vs\\src\\dataprocessorservice\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{DFBA25D0-F431-436C-82B3-78EE1CF99B50}|src\\DataProcessorService\\DataProcessorService.csproj|solutionrelative:src\\dataprocessorservice\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{376758D6-B138-4ACD-9F95-EFF091DFA33B}|src\\AuthService\\AuthService.csproj|d:\\src\\pt_vs\\src\\authservice\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{376758D6-B138-4ACD-9F95-EFF091DFA33B}|src\\AuthService\\AuthService.csproj|solutionrelative:src\\authservice\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "D:\\src\\pt_vs\\src\\GatewayService\\Dockerfile",
+              "RelativeDocumentMoniker": "src\\GatewayService\\Dockerfile",
+              "ToolTip": "D:\\src\\pt_vs\\src\\GatewayService\\Dockerfile",
+              "RelativeToolTip": "src\\GatewayService\\Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-27T06:32:52.004Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "StatusController.cs",
+              "DocumentMoniker": "D:\\src\\pt_vs\\src\\AuthService\\Controllers\\StatusController.cs",
+              "RelativeDocumentMoniker": "src\\AuthService\\Controllers\\StatusController.cs",
+              "ToolTip": "D:\\src\\pt_vs\\src\\AuthService\\Controllers\\StatusController.cs",
+              "RelativeToolTip": "src\\AuthService\\Controllers\\StatusController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-27T06:31:27.929Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\src\\pt_vs\\src\\DataProcessorService\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "src\\DataProcessorService\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\src\\pt_vs\\src\\DataProcessorService\\Properties\\launchSettings.json",
+              "RelativeToolTip": "src\\DataProcessorService\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-27T06:18:13.789Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\src\\pt_vs\\src\\GatewayService\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "src\\GatewayService\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\src\\pt_vs\\src\\GatewayService\\Properties\\launchSettings.json",
+              "RelativeToolTip": "src\\GatewayService\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-27T06:32:15.417Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StatusController.cs",
+              "DocumentMoniker": "D:\\src\\pt_vs\\src\\DataProcessorService\\Controllers\\StatusController.cs",
+              "RelativeDocumentMoniker": "src\\DataProcessorService\\Controllers\\StatusController.cs",
+              "ToolTip": "D:\\src\\pt_vs\\src\\DataProcessorService\\Controllers\\StatusController.cs",
+              "RelativeToolTip": "src\\DataProcessorService\\Controllers\\StatusController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-27T06:36:40.192Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "StatusController.cs",
+              "DocumentMoniker": "D:\\src\\pt_vs\\src\\GatewayService\\Controllers\\StatusController.cs",
+              "RelativeDocumentMoniker": "src\\GatewayService\\Controllers\\StatusController.cs",
+              "ToolTip": "D:\\src\\pt_vs\\src\\GatewayService\\Controllers\\StatusController.cs",
+              "RelativeToolTip": "src\\GatewayService\\Controllers\\StatusController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-27T06:36:53.252Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\src\\pt_vs\\src\\GatewayService\\Program.cs",
+              "RelativeDocumentMoniker": "src\\GatewayService\\Program.cs",
+              "ToolTip": "D:\\src\\pt_vs\\src\\GatewayService\\Program.cs",
+              "RelativeToolTip": "src\\GatewayService\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-27T06:37:06.807Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\src\\pt_vs\\src\\AuthService\\Program.cs",
+              "RelativeDocumentMoniker": "src\\AuthService\\Program.cs",
+              "ToolTip": "D:\\src\\pt_vs\\src\\AuthService\\Program.cs",
+              "RelativeToolTip": "src\\AuthService\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-27T06:36:12.551Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\src\\pt_vs\\src\\DataProcessorService\\Program.cs",
+              "RelativeDocumentMoniker": "src\\DataProcessorService\\Program.cs",
+              "ToolTip": "D:\\src\\pt_vs\\src\\DataProcessorService\\Program.cs",
+              "RelativeToolTip": "src\\DataProcessorService\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-27T06:36:03.761Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "D:\\src\\pt_vs\\src\\DataProcessorService\\Dockerfile",
+              "RelativeDocumentMoniker": "src\\DataProcessorService\\Dockerfile",
+              "ToolTip": "D:\\src\\pt_vs\\src\\DataProcessorService\\Dockerfile",
+              "RelativeToolTip": "src\\DataProcessorService\\Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-27T06:32:43.377Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "D:\\src\\pt_vs\\src\\AuthService\\Dockerfile",
+              "RelativeDocumentMoniker": "src\\AuthService\\Dockerfile",
+              "ToolTip": "D:\\src\\pt_vs\\src\\AuthService\\Dockerfile",
+              "RelativeToolTip": "src\\AuthService\\Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-27T06:12:25.337Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
