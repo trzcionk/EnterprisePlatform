@@ -9,10 +9,9 @@ public class ProductRepository : IProductRepository
 {
     private readonly IMongoCollection<Product> _products;
 
-    public ProductRepository(IOptions<MongoDbSettings> settings)
+    public ProductRepository(IMongoClient mongoClient, IOptions<MongoDbSettings> settings)
     {
-        var client = new MongoClient(settings.Value.ConnectionString);
-        var database = client.GetDatabase(settings.Value.DatabaseName);
+        var database = mongoClient.GetDatabase(settings.Value.DatabaseName);
         _products = database.GetCollection<Product>(settings.Value.CollectionName);
 
         // Create index on category for faster lookups
