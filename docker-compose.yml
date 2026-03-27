@@ -45,5 +45,17 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  frontend:
+    build:
+      context: ./src/Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+      - API_URL=http://products:8080
+    depends_on:
+      - products
+
 volumes:
   mongo_data:
