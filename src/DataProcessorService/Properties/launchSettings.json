@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "DataProcessorService": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:51272;http://localhost:51275"
+    }
+  }
+}
