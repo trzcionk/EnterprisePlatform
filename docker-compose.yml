@@ -44,6 +44,11 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.runCommand({ ping: 1 })"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   frontend:
     build:
@@ -56,6 +61,15 @@ services:
       - API_URL=http://products:8080
     depends_on:
       - products
+      
+  tests:
+    depends_on:
+      mongo:
+        condition: service_healthy
+    build:
+      context: .
+      dockerfile: tests/ProductService.Dal.Tests/Dockerfile
 
 volumes:
   mongo_data:
+  

@@ -12,7 +12,7 @@ COPY tests/ProductService.Dal.Tests/ tests/ProductService.Dal.Tests/
 
 # Change to the test directory and build
 WORKDIR "/src/tests/ProductService.Dal.Tests"
-RUN dotnet build "ProductService.Dal.Tests.csproj" -c Release --no-restore
+RUN dotnet build "ProductService.Dal.Tests.csproj" -c Release
 
 # Provide an entry point to seamlessly run tests from the container
 CMD ["dotnet", "test", "ProductService.Dal.Tests.csproj", "-c", "Release", "--no-build", "--logger:trx"]
