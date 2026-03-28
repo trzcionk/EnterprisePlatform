@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GatewayService.Controllers;
 
 [ApiController]
-[Route("api/status")]
+[Route("api/gateway/status")]
 public class StatusController : ControllerBase
 {
     [HttpGet]

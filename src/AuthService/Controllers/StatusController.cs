@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AuthService.Controllers;
 
 [ApiController]
-[Route("api/status")]
+[Route("api/auth/status")]
 public class StatusController : ControllerBase
 {
     [HttpGet]

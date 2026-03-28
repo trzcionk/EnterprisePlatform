@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace DataProcessorService.Controllers;
+namespace ProductService.Controllers;
 
 [ApiController]
-[Route("api/processor/status")]
+[Route("api/products/status")]
 public class StatusController : ControllerBase
 {
     [HttpGet]
