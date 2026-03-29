@@ -1,0 +1,16 @@
+**/.DS_Store
+**/bin
+**/obj
+**/.vs
+**/.git
+**/.github
+**/.vscode
+**/.idea
+.dockerignore
+LICENSE
+README.md
+docker-compose.yml
+docker_err.log
+*.sln
+*.sln.user
+*.user
