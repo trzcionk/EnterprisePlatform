@@ -13,10 +13,6 @@ public class ProductRepository : IProductRepository
     {
         var database = mongoClient.GetDatabase(settings.Value.DatabaseName);
         _products = database.GetCollection<Product>(settings.Value.CollectionName);
-
-        // Create index on category for faster lookups
-        var indexKeys = Builders<Product>.IndexKeys.Ascending(p => p.Category);
-        _products.Indexes.CreateOne(new CreateIndexModel<Product>(indexKeys));
     }
 
     public async Task<IEnumerable<Product>> GetAllAsync()

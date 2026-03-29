@@ -59,6 +59,10 @@ services:
     environment:
       - NODE_ENV=development
       - API_URL=http://products:8080
+      - VITE_AUTH_API_URL=http://auth:8080
+      - VITE_PROCESSOR_API_URL=http://processor:8080
+      - VITE_GATEWAY_API_URL=http://gateway:8080
+      - VITE_PRODUCT_API_URL=http://products:8080
     depends_on:
       - products
       
