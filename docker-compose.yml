@@ -36,7 +36,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - MongoDb__ConnectionString=mongodb://mongo:27017
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
+      tests:
+        condition: service_completed_successfully
 
   mongo:
     image: mongo:7
