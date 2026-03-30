@@ -43,6 +43,12 @@
   "welcome": "Witaj,",
   "registration_success": "Rejestracja powiodła się! Zaloguj się teraz.",
   "login_failed": "Logowanie nie powiodło się. Sprawdź dane.",
-  "register_failed": "Rejestracja nie powiodła się. Email może już istnieć."
+  "register_failed": "Rejestracja nie powiodła się. Email może już istnieć.",
+  "manage_users": "Zarządzaj użytkownikami",
+  "view_products": "Produkty",
+  "confirm_delete_user": "Czy na pewno chcesz usunąć tego użytkownika?",
+  "edit_user": "Edytuj użytkownika",
+  "save_user": "Zapisz zmiany",
+  "created_at": "Data utworzenia"
 }
 

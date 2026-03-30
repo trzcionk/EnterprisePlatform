@@ -10,6 +10,10 @@ export default defineConfig({
         target: process.env.VITE_AUTH_API_URL || 'http://127.0.0.1:5001',
         changeOrigin: true,
       },
+      '/api/users': {
+        target: process.env.VITE_AUTH_API_URL || 'http://127.0.0.1:5001',
+        changeOrigin: true,
+      },
       '/api/processor': {
         target: process.env.VITE_PROCESSOR_API_URL || 'http://127.0.0.1:5002',
         changeOrigin: true,

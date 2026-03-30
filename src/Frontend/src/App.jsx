@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { Plus, Edit2, Trash2, X, PackageOpen, Tag, DollarSign, Box, Activity, CheckCircle2, AlertCircle, LogOut, User, Lock, Mail } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, PackageOpen, Tag, DollarSign, Box, Activity, CheckCircle2, AlertCircle, LogOut, User, Users, Lock, Mail, ChevronRight } from 'lucide-react';
 
 const API_URL = '/api/products';
 const AUTH_URL = '/api/auth';
@@ -14,6 +14,10 @@ function App() {
   const [currentProduct, setCurrentProduct] = useState(null);
   const [user, setUser] = useState(null);
   const [authMode, setAuthMode] = useState('login'); // 'login' or 'register'
+  const [currentView, setCurrentView] = useState('products'); // 'products' or 'users'
+  const [users, setUsers] = useState([]);
+  const [userModalOpen, setUserModalOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
   const [statuses, setStatuses] = useState({
     auth: { status: 'loading', label: t('auth') },
     processor: { status: 'loading', label: t('processor') },
@@ -52,6 +56,19 @@ function App() {
     }
   };
 
+  const fetchUsers = async () => {
+    if (!user) return;
+    try {
+      setLoading(true);
+      const res = await axios.get('/api/users');
+      setUsers(res.data);
+    } catch (err) {
+      console.error('Failed to fetch users', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const interceptor = axios.interceptors.request.use(config => {
       const storedUser = localStorage.getItem('user');
@@ -68,12 +85,16 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      fetchProducts();
+      if (currentView === 'products') {
+        fetchProducts();
+      } else {
+        fetchUsers();
+      }
     }
     fetchStatuses();
     const interval = setInterval(fetchStatuses, 30000); // refresh every 30s
     return () => clearInterval(interval);
-  }, [user]);
+  }, [user, currentView]);
 
   useEffect(() => {
     document.title = t('title');
@@ -152,6 +173,25 @@ function App() {
             </div>
           </div>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <div style={{ display: 'flex', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', padding: '0.25rem' }}>
+              <button 
+                className={`btn-outline ${currentView === 'products' ? 'active' : ''}`}
+                style={{ border: 'none', background: currentView === 'products' ? 'var(--btn-primary)' : 'transparent', color: currentView === 'products' ? '#fff' : 'var(--text-muted)' }}
+                onClick={() => setCurrentView('products')}
+              >
+                <PackageOpen size={18} style={{ marginRight: '8px' }} />
+                {t('view_products')}
+              </button>
+              <button 
+                className={`btn-outline ${currentView === 'users' ? 'active' : ''}`}
+                style={{ border: 'none', background: currentView === 'users' ? 'var(--btn-primary)' : 'transparent', color: currentView === 'users' ? '#fff' : 'var(--text-muted)' }}
+                onClick={() => setCurrentView('users')}
+              >
+                <Users size={18} style={{ marginRight: '8px' }} />
+                {t('manage_users')}
+              </button>
+            </div>
+
             <select 
               onChange={(e) => i18n.changeLanguage(e.target.value)} 
               value={i18n.language}
@@ -161,10 +201,20 @@ function App() {
               <option value="en">English</option>
               <option value="pl">Polski</option>
             </select>
-            <button className="btn-primary" onClick={handleAddNew}>
-              <Plus size={20} />
-              {t('add_product')}
-            </button>
+            {currentView === 'products' ? (
+              <button className="btn-primary" onClick={handleAddNew}>
+                <Plus size={20} />
+                {t('add_product')}
+              </button>
+            ) : (
+              <button className="btn-primary" onClick={() => {
+                setEditingUser(null);
+                setUserModalOpen(true);
+              }}>
+                <Plus size={20} />
+                {t('register')}
+              </button>
+            )}
             <button className="btn-danger" onClick={handleLogout} title={t('logout')}>
                <LogOut size={20} />
             </button>
@@ -176,51 +226,72 @@ function App() {
           <div style={{ padding: '4rem 0' }}>
             <div className="spinner"></div>
           </div>
-        ) : products.length === 0 ? (
-          <div className="glass-panel empty-state">
-            <PackageOpen size={64} />
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>{t('no_products')}</h2>
-            <p style={{ marginBottom: '2rem' }}>{t('no_products_desc')}</p>
-            <button className="btn-primary" onClick={handleAddNew}>
-              <Plus size={20} />
-              {t('add_first_product')}
-            </button>
-          </div>
+        ) : currentView === 'products' ? (
+          products.length === 0 ? (
+            <div className="glass-panel empty-state">
+              <PackageOpen size={64} />
+              <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>{t('no_products')}</h2>
+              <p style={{ marginBottom: '2rem' }}>{t('no_products_desc')}</p>
+              <button className="btn-primary" onClick={handleAddNew}>
+                <Plus size={20} />
+                {t('add_first_product')}
+              </button>
+            </div>
+          ) : (
+            <div className="product-grid">
+              {products.map(product => (
+                <div key={product.id} className="glass-panel product-card">
+                  <div className="product-category">
+                    <Tag size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'middle' }} />
+                    {product.category || t('uncategorized')}
+                  </div>
+                  <h3 className="product-title">{product.name}</h3>
+                  <p className="product-desc">{product.description}</p>
+
+                  <div className="product-meta">
+                    <div className="product-price">
+                      <DollarSign size={18} style={{ display: 'inline', verticalAlign: 'sub', opacity: 0.7 }} />
+                      {product.price}
+                    </div>
+                    <div className="product-stock">
+                      <Box size={14} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'text-bottom' }} />
+                      {product.stock} {t('in_stock')}
+                    </div>
+                  </div>
+
+                  <div className="card-actions">
+                    <button className="btn-outline" onClick={() => handleEdit(product)}>
+                      <Edit2 size={16} />
+                      {t('edit')}
+                    </button>
+                    <button className="btn-danger" onClick={() => handleDelete(product.id)}>
+                      <Trash2 size={16} />
+                      {t('delete')}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )
         ) : (
-          <div className="product-grid">
-            {products.map(product => (
-              <div key={product.id} className="glass-panel product-card">
-                <div className="product-category">
-                  <Tag size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'middle' }} />
-                  {product.category || t('uncategorized')}
-                </div>
-                <h3 className="product-title">{product.name}</h3>
-                <p className="product-desc">{product.description}</p>
-
-                <div className="product-meta">
-                  <div className="product-price">
-                    <DollarSign size={18} style={{ display: 'inline', verticalAlign: 'sub', opacity: 0.7 }} />
-                    {product.price}
-                  </div>
-                  <div className="product-stock">
-                    <Box size={14} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'text-bottom' }} />
-                    {product.stock} {t('in_stock')}
-                  </div>
-                </div>
-
-                <div className="card-actions">
-                  <button className="btn-outline" onClick={() => handleEdit(product)}>
-                    <Edit2 size={16} />
-                    {t('edit')}
-                  </button>
-                  <button className="btn-danger" onClick={() => handleDelete(product.id)}>
-                    <Trash2 size={16} />
-                    {t('delete')}
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+          <UsersView 
+            users={users} 
+            t={t} 
+            onDelete={async (id) => {
+              if (confirm(t('confirm_delete_user'))) {
+                try {
+                  await axios.delete(`/api/users/${id}`);
+                  fetchUsers();
+                } catch (err) {
+                  alert('Failed to delete user');
+                }
+              }
+            }}
+            onEdit={(user) => {
+              setEditingUser(user);
+              setUserModalOpen(true);
+            }}
+          />
         )}
       </div>
 
@@ -231,6 +302,18 @@ function App() {
           onSave={() => {
             setModalOpen(false);
             fetchProducts();
+          }}
+        />
+      )}
+
+      {userModalOpen && (
+        <UserModal 
+          user={editingUser}
+          t={t}
+          onClose={() => setUserModalOpen(false)}
+          onSave={() => {
+            setUserModalOpen(false);
+            fetchUsers();
           }}
         />
       )}
@@ -486,6 +569,132 @@ function AuthView({ mode, setMode, onSuccess, t, i18n }) {
           <option value="en">EN</option>
           <option value="pl">PL</option>
         </select>
+      </div>
+    </div>
+  );
+}
+
+function UsersView({ users, t, onEdit, onDelete }) {
+  return (
+    <div className="glass-panel" style={{ padding: '2rem', overflowX: 'auto' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', color: '#fff' }}>
+        <thead>
+          <tr style={{ borderBottom: '1px solid var(--border)', textAlign: 'left' }}>
+            <th style={{ padding: '1rem' }}>{t('user_name')}</th>
+            <th style={{ padding: '1rem' }}>{t('email')}</th>
+            <th style={{ padding: '1rem' }}>{t('created_at')}</th>
+            <th style={{ padding: '1rem', textAlign: 'right' }}>{t('actions')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map(u => (
+            <tr key={u.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <td style={{ padding: '1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <div style={{ background: 'var(--btn-primary)', padding: '0.5rem', borderRadius: '50%' }}>
+                    <User size={16} />
+                  </div>
+                  {u.username}
+                </div>
+              </td>
+              <td style={{ padding: '1rem', color: 'var(--text-muted)' }}>{u.email}</td>
+              <td style={{ padding: '1rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                {new Date(u.createdAt).toLocaleDateString()}
+              </td>
+              <td style={{ padding: '1rem', textAlign: 'right' }}>
+                <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                  <button className="btn-outline" style={{ padding: '0.4rem' }} onClick={() => onEdit(u)}>
+                    <Edit2 size={16} />
+                  </button>
+                  <button className="btn-danger" style={{ padding: '0.4rem' }} onClick={() => onDelete(u.id)}>
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function UserModal({ user, t, onClose, onSave }) {
+  const [formData, setFormData] = useState(
+    user ? { username: user.username, email: user.email } : { username: '', email: '', password: '' }
+  );
+  const [saving, setSaving] = useState(false);
+  const isEditing = !!user;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+    try {
+      if (isEditing) {
+        await axios.put(`/api/users/${user.id}`, formData);
+      } else {
+        await axios.post('/api/users', formData);
+      }
+      onSave();
+    } catch (err) {
+      alert(isEditing ? 'Failed to update user' : 'Failed to create user');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="modal-overlay">
+      <div className="glass-panel modal-content animate-fade-in" style={{ animationDuration: '0.2s' }}>
+        <div className="modal-header">
+          <h2 style={{ fontSize: '1.5rem', color: '#fff' }}>
+            {isEditing ? t('edit_user') : t('register')}
+          </h2>
+          <button style={{ background: 'transparent', padding: '0.5rem' }} onClick={onClose} type="button">
+            <X size={20} color="var(--text-muted)" />
+          </button>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>{t('user_name')}</label>
+            <input 
+              value={formData.username} 
+              onChange={e => setFormData({...formData, username: e.target.value})}
+              required
+              placeholder={t('user_name')}
+            />
+          </div>
+          <div className="form-group">
+            <label>{t('email')}</label>
+            <input 
+              type="email"
+              value={formData.email} 
+              onChange={e => setFormData({...formData, email: e.target.value})}
+              required
+              placeholder="email@example.com"
+            />
+          </div>
+          {!isEditing && (
+            <div className="form-group">
+              <label>{t('password')}</label>
+              <input 
+                type="password"
+                value={formData.password} 
+                onChange={e => setFormData({...formData, password: e.target.value})}
+                required
+                placeholder="••••••••"
+              />
+            </div>
+          )}
+          <div className="modal-actions">
+            <button type="button" className="btn-outline" onClick={onClose} disabled={saving}>
+              {t('cancel')}
+            </button>
+            <button type="submit" className="btn-primary" disabled={saving}>
+              {saving ? t('saving') : (isEditing ? t('save_user') : t('register'))}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
