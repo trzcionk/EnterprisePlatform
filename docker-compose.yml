@@ -74,6 +74,7 @@ services:
       - VITE_PRODUCT_API_URL=http://products:8080
     depends_on:
       - products
+      - auth
 
   tests:
     depends_on:
