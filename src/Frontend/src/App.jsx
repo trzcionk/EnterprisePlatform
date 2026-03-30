@@ -134,93 +134,95 @@ function App() {
   }
 
   return (
-    <div className="container animate-fade-in">
-      <header className="page-header glass-panel" style={{ padding: '1.5rem 2rem' }}>
-        <div>
-          <h1 className="page-title" style={{ margin: 0 }}>{t('title')}</h1>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginTop: '0.5rem' }}>
-            <p style={{ color: 'var(--text-muted)', margin: 0 }}>{t('welcome')} {user.username}</p>
-            <div className="status-indicators">
-              {Object.entries(statuses).map(([key, info]) => (
-                <div key={key} className={`status-tag ${info.status === 'Running' ? 'status-online' : 'status-offline'}`}>
-                  {info.status === 'Running' ? <CheckCircle2 size={12} /> : <AlertCircle size={12} />}
-                  <span>{info.label}: {info.status === 'loading' ? t('status_checking') : (info.status === 'Running' ? t('status_running') : info.status)}</span>
-                </div>
-              ))}
+    <>
+      <div className="container animate-fade-in">
+        <header className="page-header glass-panel" style={{ padding: '1.5rem 2rem' }}>
+          <div>
+            <h1 className="page-title" style={{ margin: 0 }}>{t('title')}</h1>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginTop: '0.5rem' }}>
+              <p style={{ color: 'var(--text-muted)', margin: 0 }}>{t('welcome')} {user.username}</p>
+              <div className="status-indicators">
+                {Object.entries(statuses).map(([key, info]) => (
+                  <div key={key} className={`status-tag ${info.status === 'Running' ? 'status-online' : 'status-offline'}`}>
+                    {info.status === 'Running' ? <CheckCircle2 size={12} /> : <AlertCircle size={12} />}
+                    <span>{info.label}: {info.status === 'loading' ? t('status_checking') : (info.status === 'Running' ? t('status_running') : info.status)}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <select 
-            onChange={(e) => i18n.changeLanguage(e.target.value)} 
-            value={i18n.language}
-            className="btn-outline"
-            style={{ padding: '0.5rem', borderRadius: '8px', cursor: 'pointer' }}
-          >
-            <option value="en">English</option>
-            <option value="pl">Polski</option>
-          </select>
-          <button className="btn-primary" onClick={handleAddNew}>
-            <Plus size={20} />
-            {t('add_product')}
-          </button>
-          <button className="btn-danger" onClick={handleLogout} title={t('logout')}>
-             <LogOut size={20} />
-          </button>
-        </div>
-      </header>
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <select 
+              onChange={(e) => i18n.changeLanguage(e.target.value)} 
+              value={i18n.language}
+              className="btn-outline"
+              style={{ padding: '0.5rem', borderRadius: '8px', cursor: 'pointer' }}
+            >
+              <option value="en">English</option>
+              <option value="pl">Polski</option>
+            </select>
+            <button className="btn-primary" onClick={handleAddNew}>
+              <Plus size={20} />
+              {t('add_product')}
+            </button>
+            <button className="btn-danger" onClick={handleLogout} title={t('logout')}>
+               <LogOut size={20} />
+            </button>
+          </div>
+        </header>
 
 
-      {loading ? (
-        <div style={{ padding: '4rem 0' }}>
-          <div className="spinner"></div>
-        </div>
-      ) : products.length === 0 ? (
-        <div className="glass-panel empty-state">
-          <PackageOpen size={64} />
-          <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>{t('no_products')}</h2>
-          <p style={{ marginBottom: '2rem' }}>{t('no_products_desc')}</p>
-          <button className="btn-primary" onClick={handleAddNew}>
-            <Plus size={20} />
-            {t('add_first_product')}
-          </button>
-        </div>
-      ) : (
-        <div className="product-grid">
-          {products.map(product => (
-            <div key={product.id} className="glass-panel product-card">
-              <div className="product-category">
-                <Tag size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'middle' }} />
-                {product.category || t('uncategorized')}
-              </div>
-              <h3 className="product-title">{product.name}</h3>
-              <p className="product-desc">{product.description}</p>
-
-              <div className="product-meta">
-                <div className="product-price">
-                  <DollarSign size={18} style={{ display: 'inline', verticalAlign: 'sub', opacity: 0.7 }} />
-                  {product.price}
+        {loading ? (
+          <div style={{ padding: '4rem 0' }}>
+            <div className="spinner"></div>
+          </div>
+        ) : products.length === 0 ? (
+          <div className="glass-panel empty-state">
+            <PackageOpen size={64} />
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>{t('no_products')}</h2>
+            <p style={{ marginBottom: '2rem' }}>{t('no_products_desc')}</p>
+            <button className="btn-primary" onClick={handleAddNew}>
+              <Plus size={20} />
+              {t('add_first_product')}
+            </button>
+          </div>
+        ) : (
+          <div className="product-grid">
+            {products.map(product => (
+              <div key={product.id} className="glass-panel product-card">
+                <div className="product-category">
+                  <Tag size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'middle' }} />
+                  {product.category || t('uncategorized')}
                 </div>
-                <div className="product-stock">
-                  <Box size={14} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'text-bottom' }} />
-                  {product.stock} {t('in_stock')}
+                <h3 className="product-title">{product.name}</h3>
+                <p className="product-desc">{product.description}</p>
+
+                <div className="product-meta">
+                  <div className="product-price">
+                    <DollarSign size={18} style={{ display: 'inline', verticalAlign: 'sub', opacity: 0.7 }} />
+                    {product.price}
+                  </div>
+                  <div className="product-stock">
+                    <Box size={14} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'text-bottom' }} />
+                    {product.stock} {t('in_stock')}
+                  </div>
+                </div>
+
+                <div className="card-actions">
+                  <button className="btn-outline" onClick={() => handleEdit(product)}>
+                    <Edit2 size={16} />
+                    {t('edit')}
+                  </button>
+                  <button className="btn-danger" onClick={() => handleDelete(product.id)}>
+                    <Trash2 size={16} />
+                    {t('delete')}
+                  </button>
                 </div>
               </div>
-
-              <div className="card-actions">
-                <button className="btn-outline" onClick={() => handleEdit(product)}>
-                  <Edit2 size={16} />
-                  {t('edit')}
-                </button>
-                <button className="btn-danger" onClick={() => handleDelete(product.id)}>
-                  <Trash2 size={16} />
-                  {t('delete')}
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
 
       {modalOpen && (
         <ProductModal
@@ -232,7 +234,7 @@ function App() {
           }}
         />
       )}
-    </div>
+    </>
   );
 }
 
