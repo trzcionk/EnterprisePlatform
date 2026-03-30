@@ -44,6 +44,8 @@ services:
         condition: service_healthy
       tests:
         condition: service_completed_successfully
+      auth:
+        condition: service_healthy
 
   mongo:
     image: mongo:7
@@ -52,7 +54,7 @@ services:
     volumes:
       - mongo_data:/data/db
     healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.runCommand({ ping: 1 })"]
+      test: [ "CMD", "mongosh", "--eval", "db.runCommand({ ping: 1 })" ]
       interval: 5s
       timeout: 3s
       retries: 5
@@ -72,7 +74,7 @@ services:
       - VITE_PRODUCT_API_URL=http://products:8080
     depends_on:
       - products
-      
+
   tests:
     depends_on:
       mongo:
@@ -83,4 +85,3 @@ services:
 
 volumes:
   mongo_data:
-  

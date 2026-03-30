@@ -6,7 +6,7 @@ builder.Services.AddControllers();
 builder.Services.AddProductDal(builder.Configuration);
 
 var app = builder.Build();
-
+app.UseAuthentication();
 app.MapControllers();
 app.MapGet("/health", () => "OK");
 

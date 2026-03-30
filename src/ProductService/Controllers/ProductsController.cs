@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using ProductService.Dal.Models;
 using ProductService.Dal.Repositories;
 using ProductService.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProductService.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class ProductsController : ControllerBase
