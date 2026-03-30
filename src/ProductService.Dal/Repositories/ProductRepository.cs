@@ -17,7 +17,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<IEnumerable<Product>> GetAllAsync()
     {
-        throw new Exception("Test");
+       // throw new Exception("Test");
         return await _products.Find(_ => true).ToListAsync();
     }
 
