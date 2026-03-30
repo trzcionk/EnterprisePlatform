@@ -53,6 +53,20 @@ function App() {
   };
 
   useEffect(() => {
+    const interceptor = axios.interceptors.request.use(config => {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        const { token } = JSON.parse(storedUser);
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+      }
+      return config;
+    });
+    return () => axios.interceptors.request.eject(interceptor);
+  }, []);
+
+  useEffect(() => {
     if (user) {
       fetchProducts();
     }
@@ -223,6 +237,7 @@ function App() {
 }
 
 function ProductModal({ product, onClose, onSave }) {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState(
     product || { name: '', description: '', price: '', stock: '', category: '' }
   );

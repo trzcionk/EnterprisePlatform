@@ -3,10 +3,11 @@ using ProductService.Dal.Models;
 using ProductService.Dal.Repositories;
 using ProductService.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ProductService.Controllers;
 
-[Authorize]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [ApiController]
 [Route("api/[controller]")]
 public class ProductsController : ControllerBase

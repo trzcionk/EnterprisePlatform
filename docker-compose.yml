@@ -44,8 +44,8 @@ services:
         condition: service_healthy
       tests:
         condition: service_completed_successfully
-      auth:
-        condition: service_healthy
+  #      auth:
+  #        condition: service_healthy
 
   mongo:
     image: mongo:7
