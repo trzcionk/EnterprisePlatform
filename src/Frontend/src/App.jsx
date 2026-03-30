@@ -1,19 +1,21 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { Plus, Edit2, Trash2, X, PackageOpen, Tag, DollarSign, Box, Activity, CheckCircle2, AlertCircle } from 'lucide-react';
 
 const API_URL = '/api/products';
 
 function App() {
+  const { t, i18n } = useTranslation();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [statuses, setStatuses] = useState({
-    auth: { status: 'loading', label: 'Auth' },
-    processor: { status: 'loading', label: 'Processor' },
-    gateway: { status: 'loading', label: 'Gateway' },
-    product: { status: 'loading', label: 'Product' }
+    auth: { status: 'loading', label: t('auth') },
+    processor: { status: 'loading', label: t('processor') },
+    gateway: { status: 'loading', label: t('gateway') },
+    product: { status: 'loading', label: t('product') }
   });
 
   const fetchStatuses = async () => {
@@ -40,7 +42,7 @@ function App() {
       const res = await axios.get(API_URL);
       setProducts(res.data);
     } catch (err) {
-      console.error('Failed to fetch products', err);
+      console.error(t('failed_fetch'), err);
     } finally {
       setLoading(false);
     }
@@ -53,13 +55,17 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    document.title = t('title');
+  }, [t]);
+
   const handleDelete = async (id) => {
-    if (confirm('Are you sure you want to delete this product?')) {
+    if (confirm(t('confirm_delete'))) {
       try {
         await axios.delete(`${API_URL}/${id}`);
         setProducts(products.filter(p => p.id !== id));
       } catch (err) {
-        console.error('Failed to delete', err);
+        console.error(t('failed_delete'), err);
       }
     }
   };
@@ -78,23 +84,34 @@ function App() {
     <div className="container animate-fade-in">
       <header className="page-header glass-panel" style={{ padding: '1.5rem 2rem' }}>
         <div>
-          <h1 className="page-title" style={{ margin: 0 }}>Product Inventory</h1>
+          <h1 className="page-title" style={{ margin: 0 }}>{t('title')}</h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginTop: '0.5rem' }}>
-            <p style={{ color: 'var(--text-muted)', margin: 0 }}>Manage your enterprise products</p>
+            <p style={{ color: 'var(--text-muted)', margin: 0 }}>{t('subtitle')}</p>
             <div className="status-indicators">
               {Object.entries(statuses).map(([key, info]) => (
                 <div key={key} className={`status-tag ${info.status === 'Running' ? 'status-online' : 'status-offline'}`}>
                   {info.status === 'Running' ? <CheckCircle2 size={12} /> : <AlertCircle size={12} />}
-                  <span>{info.label}: {info.status === 'loading' ? 'Checking...' : info.status}</span>
+                  <span>{info.label}: {info.status === 'loading' ? t('status_checking') : (info.status === 'Running' ? t('status_running') : info.status)}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
-        <button className="btn-primary" onClick={handleAddNew}>
-          <Plus size={20} />
-          Add Product
-        </button>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <select 
+            onChange={(e) => i18n.changeLanguage(e.target.value)} 
+            value={i18n.language}
+            className="btn-outline"
+            style={{ padding: '0.5rem', borderRadius: '8px', cursor: 'pointer' }}
+          >
+            <option value="en">English</option>
+            <option value="pl">Polski</option>
+          </select>
+          <button className="btn-primary" onClick={handleAddNew}>
+            <Plus size={20} />
+            {t('add_product')}
+          </button>
+        </div>
       </header>
 
       {loading ? (
@@ -104,11 +121,11 @@ function App() {
       ) : products.length === 0 ? (
         <div className="glass-panel empty-state">
           <PackageOpen size={64} />
-          <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>No products found</h2>
-          <p style={{ marginBottom: '2rem' }}>Get started by adding your first product to the inventory.</p>
+          <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>{t('no_products')}</h2>
+          <p style={{ marginBottom: '2rem' }}>{t('no_products_desc')}</p>
           <button className="btn-primary" onClick={handleAddNew}>
             <Plus size={20} />
-            Add First Product
+            {t('add_first_product')}
           </button>
         </div>
       ) : (
@@ -117,7 +134,7 @@ function App() {
             <div key={product.id} className="glass-panel product-card">
               <div className="product-category">
                 <Tag size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'middle' }} />
-                {product.category || 'Uncategorized'}
+                {product.category || t('uncategorized')}
               </div>
               <h3 className="product-title">{product.name}</h3>
               <p className="product-desc">{product.description}</p>
@@ -129,18 +146,18 @@ function App() {
                 </div>
                 <div className="product-stock">
                   <Box size={14} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'text-bottom' }} />
-                  {product.stock} in stock
+                  {product.stock} {t('in_stock')}
                 </div>
               </div>
 
               <div className="card-actions">
                 <button className="btn-outline" onClick={() => handleEdit(product)}>
                   <Edit2 size={16} />
-                  Edit
+                  {t('edit')}
                 </button>
                 <button className="btn-danger" onClick={() => handleDelete(product.id)}>
                   <Trash2 size={16} />
-                  Delete
+                  {t('delete')}
                 </button>
               </div>
             </div>
@@ -190,8 +207,8 @@ function ProductModal({ product, onClose, onSave }) {
       }
       onSave();
     } catch (err) {
-      console.error('Failed to save product', err);
-      alert('Failed to save product. Check console.');
+      console.error(t('failed_save'), err);
+      alert(t('failed_save'));
     } finally {
       setSaving(false);
     }
@@ -202,7 +219,7 @@ function ProductModal({ product, onClose, onSave }) {
       <div className="glass-panel modal-content animate-fade-in" style={{ animationDuration: '0.2s' }}>
         <div className="modal-header">
           <h2 style={{ fontSize: '1.5rem', color: '#fff' }}>
-            {isEditing ? 'Edit Product' : 'Add New Product'}
+            {isEditing ? t('edit_product') : t('add_new_product')}
           </h2>
           <button style={{ background: 'transparent', padding: '0.5rem' }} onClick={onClose} type="button">
             <X size={20} color="var(--text-muted)" />
@@ -211,7 +228,7 @@ function ProductModal({ product, onClose, onSave }) {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Product Name</label>
+            <label htmlFor="name">{t('product_name')}</label>
             <input
               required
               type="text"
@@ -219,12 +236,12 @@ function ProductModal({ product, onClose, onSave }) {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="e.g. Wireless Headphones"
+              placeholder={t('name_placeholder')}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">{t('description')}</label>
             <textarea
               required
               id="description"
@@ -232,13 +249,13 @@ function ProductModal({ product, onClose, onSave }) {
               value={formData.description}
               onChange={handleChange}
               rows={3}
-              placeholder="Detailed product description..."
+              placeholder={t('desc_placeholder')}
             />
           </div>
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="price">Price ($)</label>
+              <label htmlFor="price">{t('price')}</label>
               <input
                 required
                 type="number"
@@ -252,7 +269,7 @@ function ProductModal({ product, onClose, onSave }) {
             </div>
 
             <div className="form-group">
-              <label htmlFor="stock">Stock Quantity</label>
+              <label htmlFor="stock">{t('stock_quantity')}</label>
               <input
                 required
                 type="number"
@@ -266,7 +283,7 @@ function ProductModal({ product, onClose, onSave }) {
           </div>
 
           <div className="form-group">
-            <label htmlFor="category">Category</label>
+            <label htmlFor="category">{t('category')}</label>
             <input
               required
               type="text"
@@ -274,16 +291,16 @@ function ProductModal({ product, onClose, onSave }) {
               name="category"
               value={formData.category}
               onChange={handleChange}
-              placeholder="e.g. Electronics"
+              placeholder={t('cat_placeholder')}
             />
           </div>
 
           <div className="modal-actions">
             <button type="button" className="btn-outline" onClick={onClose} disabled={saving}>
-              Cancel
+              {t('cancel')}
             </button>
             <button type="submit" className="btn-primary" disabled={saving}>
-              {saving ? 'Saving...' : 'Save Product'}
+              {saving ? t('saving') : t('save_product')}
             </button>
           </div>
         </form>
