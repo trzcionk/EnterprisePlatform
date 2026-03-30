@@ -109,4 +109,95 @@ public class ProductRepositoryTests
                 default), 
             Times.Once);
     }
+
+    [Fact]
+    public async Task GetAllAsync_ReturnsAllProducts()
+    {
+        // Arrange
+        var products = new List<Product> 
+        { 
+            new Product { Name = "P1" }, 
+            new Product { Name = "P2" } 
+        };
+
+        var mockCursor = new Mock<IAsyncCursor<Product>>();
+        mockCursor.Setup(_ => _.Current).Returns(products);
+        mockCursor
+            .SetupSequence(_ => _.MoveNextAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(true)
+            .ReturnsAsync(false);
+
+        _mockCollection.Setup(c => c.FindAsync(
+                It.IsAny<FilterDefinition<Product>>(),
+                It.IsAny<FindOptions<Product, Product>>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(mockCursor.Object);
+
+        // Act
+        var result = await _repository.GetAllAsync();
+
+        // Assert
+        Assert.Equal(2, result.Count());
+        Assert.Contains(result, p => p.Name == "P1");
+    }
+
+    [Fact]
+    public async Task GetByIdAsync_ReturnsProductIfExists()
+    {
+        // Arrange
+        var id = "existing-id";
+        var product = new Product { Id = id, Name = "Found Product" };
+        var products = new List<Product> { product };
+
+        var mockCursor = new Mock<IAsyncCursor<Product>>();
+        mockCursor.Setup(_ => _.Current).Returns(products);
+        mockCursor
+            .SetupSequence(_ => _.MoveNextAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(true)
+            .ReturnsAsync(false);
+
+        _mockCollection.Setup(c => c.FindAsync(
+                It.IsAny<FilterDefinition<Product>>(),
+                It.IsAny<FindOptions<Product, Product>>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(mockCursor.Object);
+
+        // Act
+        var result = await _repository.GetByIdAsync(id);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(id, result.Id);
+    }
+
+    [Fact]
+    public async Task GetByCategoryAsync_ReturnsFilteredProducts()
+    {
+        // Arrange
+        var category = "Electronics";
+        var products = new List<Product> 
+        { 
+            new Product { Category = category, Name = "Laptop" } 
+        };
+
+        var mockCursor = new Mock<IAsyncCursor<Product>>();
+        mockCursor.Setup(_ => _.Current).Returns(products);
+        mockCursor
+            .SetupSequence(_ => _.MoveNextAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(true)
+            .ReturnsAsync(false);
+
+        _mockCollection.Setup(c => c.FindAsync(
+                It.IsAny<FilterDefinition<Product>>(),
+                It.IsAny<FindOptions<Product, Product>>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(mockCursor.Object);
+
+        // Act
+        var result = await _repository.GetByCategoryAsync(category);
+
+        // Assert
+        Assert.Single(result);
+        Assert.Equal("Laptop", result.First().Name);
+    }
 }

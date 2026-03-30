@@ -17,6 +17,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<IEnumerable<Product>> GetAllAsync()
     {
+        throw new Exception("Test");
         return await _products.Find(_ => true).ToListAsync();
     }
 
@@ -27,9 +28,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<IEnumerable<Product>> GetByCategoryAsync(string category)
     {
-        return await _products
-            .Find(p => p.Category == category)
-            .ToListAsync();
+        return await _products.Find(p => p.Category == category).ToListAsync();
     }
 
     public async Task<Product> CreateAsync(Product product)
