@@ -31,5 +31,18 @@
   "product": "Produkt",
   "failed_fetch": "Nie udało się pobrać produktów",
   "failed_delete": "Nie udało się usunąć produktu",
-  "failed_save": "Nie udało się zapisać produktu. Sprawdź konsolę."
+  "failed_save": "Nie udało się zapisać produktu. Sprawdź konsolę.",
+  "login": "Zaloguj się",
+  "register": "Zarejestruj się",
+  "user_name": "Nazwa użytkownika",
+  "email": "Email",
+  "password": "Hasło",
+  "dont_have_account": "Nie masz konta?",
+  "already_have_account": "Masz już konto?",
+  "logout": "Wyloguj się",
+  "welcome": "Witaj,",
+  "registration_success": "Rejestracja powiodła się! Zaloguj się teraz.",
+  "login_failed": "Logowanie nie powiodło się. Sprawdź dane.",
+  "register_failed": "Rejestracja nie powiodła się. Email może już istnieć."
 }
+

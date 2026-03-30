@@ -31,5 +31,18 @@
   "product": "Product",
   "failed_fetch": "Failed to fetch products",
   "failed_delete": "Failed to delete",
-  "failed_save": "Failed to save product. Check console."
+  "failed_save": "Failed to save product. Check console.",
+  "login": "Login",
+  "register": "Register",
+  "user_name": "Username",
+  "email": "Email",
+  "password": "Password",
+  "dont_have_account": "Don't have an account?",
+  "already_have_account": "Already have an account?",
+  "logout": "Logout",
+  "welcome": "Welcome,",
+  "registration_success": "Registration successful! Please login.",
+  "login_failed": "Login failed. Please check credentials.",
+  "register_failed": "Registration failed. Email might already be taken."
 }
+

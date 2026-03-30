@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { Plus, Edit2, Trash2, X, PackageOpen, Tag, DollarSign, Box, Activity, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, PackageOpen, Tag, DollarSign, Box, Activity, CheckCircle2, AlertCircle, LogOut, User, Lock, Mail } from 'lucide-react';
 
 const API_URL = '/api/products';
+const AUTH_URL = '/api/auth';
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -11,6 +12,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
+  const [user, setUser] = useState(null);
+  const [authMode, setAuthMode] = useState('login'); // 'login' or 'register'
   const [statuses, setStatuses] = useState({
     auth: { status: 'loading', label: t('auth') },
     processor: { status: 'loading', label: t('processor') },
@@ -37,6 +40,7 @@ function App() {
   };
 
   const fetchProducts = async () => {
+    if (!user) return;
     try {
       setLoading(true);
       const res = await axios.get(API_URL);
@@ -49,15 +53,36 @@ function App() {
   };
 
   useEffect(() => {
-    fetchProducts();
+    if (user) {
+      fetchProducts();
+    }
     fetchStatuses();
     const interval = setInterval(fetchStatuses, 30000); // refresh every 30s
     return () => clearInterval(interval);
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     document.title = t('title');
   }, [t]);
+
+  const handleAuthSuccess = (userData) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+    setProducts([]);
+  };
+
+  // Restored from localStorage on load
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const handleDelete = async (id) => {
     if (confirm(t('confirm_delete'))) {
@@ -80,13 +105,27 @@ function App() {
     setModalOpen(true);
   };
 
+  if (!user) {
+    return (
+      <div className="container animate-fade-in">
+        <AuthView 
+          mode={authMode} 
+          setMode={setAuthMode} 
+          onSuccess={handleAuthSuccess} 
+          t={t}
+          i18n={i18n}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="container animate-fade-in">
       <header className="page-header glass-panel" style={{ padding: '1.5rem 2rem' }}>
         <div>
           <h1 className="page-title" style={{ margin: 0 }}>{t('title')}</h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginTop: '0.5rem' }}>
-            <p style={{ color: 'var(--text-muted)', margin: 0 }}>{t('subtitle')}</p>
+            <p style={{ color: 'var(--text-muted)', margin: 0 }}>{t('welcome')} {user.username}</p>
             <div className="status-indicators">
               {Object.entries(statuses).map(([key, info]) => (
                 <div key={key} className={`status-tag ${info.status === 'Running' ? 'status-online' : 'status-offline'}`}>
@@ -111,8 +150,12 @@ function App() {
             <Plus size={20} />
             {t('add_product')}
           </button>
+          <button className="btn-danger" onClick={handleLogout} title={t('logout')}>
+             <LogOut size={20} />
+          </button>
         </div>
       </header>
+
 
       {loading ? (
         <div style={{ padding: '4rem 0' }}>
@@ -309,4 +352,127 @@ function ProductModal({ product, onClose, onSave }) {
   );
 }
 
+
+function AuthView({ mode, setMode, onSuccess, t, i18n }) {
+  const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [msg, setMsg] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setMsg('');
+
+    try {
+      if (mode === 'login') {
+        const res = await axios.post('/api/auth/login', {
+          email: formData.email,
+          password: formData.password
+        });
+        onSuccess(res.data);
+      } else {
+        await axios.post('/api/auth/register', formData);
+        setMsg(t('registration_success'));
+        setMode('login');
+      }
+    } catch (err) {
+      setError(mode === 'login' ? t('login_failed') : t('register_failed'));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="glass-panel" style={{ maxWidth: '450px', margin: '10vh auto', padding: '2.5rem' }}>
+      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <h2 style={{ fontSize: '2rem', color: '#fff', marginBottom: '0.5rem' }}>
+          {mode === 'login' ? t('login') : t('register')}
+        </h2>
+        <p style={{ color: 'var(--text-muted)' }}>{t('subtitle')}</p>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        {mode === 'register' && (
+          <div className="form-group">
+            <label><User size={14} style={{ marginRight: '6px' }} /> {t('user_name')}</label>
+            <input 
+              name="username" 
+              required 
+              onChange={handleChange} 
+              value={formData.username} 
+              placeholder={t('user_name')}
+            />
+          </div>
+        )}
+        <div className="form-group">
+          <label><Mail size={14} style={{ marginRight: '6px' }} /> {t('email')}</label>
+          <input 
+            type="email" 
+            name="email" 
+            required 
+            onChange={handleChange} 
+            value={formData.email} 
+            placeholder="email@example.com"
+          />
+        </div>
+        <div className="form-group">
+          <label><Lock size={14} style={{ marginRight: '6px' }} /> {t('password')}</label>
+          <input 
+            type="password" 
+            name="password" 
+            required 
+            onChange={handleChange} 
+            value={formData.password} 
+            placeholder="••••••••"
+          />
+        </div>
+
+        {error && <div style={{ color: 'var(--status-offline)', marginBottom: '1rem', fontSize: '0.9rem' }}>{error}</div>}
+        {msg && <div style={{ color: 'var(--status-online)', marginBottom: '1rem', fontSize: '0.9rem' }}>{msg}</div>}
+
+        <button type="submit" className="btn-primary" style={{ width: '100%', padding: '1rem' }} disabled={loading}>
+          {loading ? t('loading') : (mode === 'login' ? t('login') : t('register'))}
+        </button>
+      </form>
+
+      <div style={{ marginTop: '1.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+        {mode === 'login' ? (
+          <p>
+            {t('dont_have_account')}{' '}
+            <button className="btn-outline" style={{ border: 'none', background: 'none', padding: 0, textDecoration: 'underline' }} onClick={() => setMode('register')}>
+              {t('register')}
+            </button>
+          </p>
+        ) : (
+          <p>
+            {t('already_have_account')}{' '}
+            <button className="btn-outline" style={{ border: 'none', background: 'none', padding: 0, textDecoration: 'underline' }} onClick={() => setMode('login')}>
+              {t('login')}
+            </button>
+          </p>
+        )}
+      </div>
+
+      <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>
+        <select 
+          onChange={(e) => i18n.changeLanguage(e.target.value)} 
+          value={i18n.language}
+          className="btn-outline"
+          style={{ padding: '0.3rem 0.6rem', fontSize: '0.8rem' }}
+        >
+          <option value="en">EN</option>
+          <option value="pl">PL</option>
+        </select>
+      </div>
+    </div>
+  );
+}
+
 export default App;
+
