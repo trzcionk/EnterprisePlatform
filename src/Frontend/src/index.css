@@ -56,6 +56,18 @@ select {
   transition: all 0.2s ease;
 }
 
+select option {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+select option:checked,
+select option:hover,
+select option:focus {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
 input:focus,
 textarea:focus,
 select:focus {

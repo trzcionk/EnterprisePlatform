@@ -194,7 +194,7 @@ function App() {
 
             <select 
               onChange={(e) => i18n.changeLanguage(e.target.value)} 
-              value={i18n.language}
+              value={i18n.resolvedLanguage || i18n.language.split('-')[0]}
               className="btn-outline"
               style={{ padding: '0.5rem', borderRadius: '8px', cursor: 'pointer' }}
             >
@@ -562,7 +562,7 @@ function AuthView({ mode, setMode, onSuccess, t, i18n }) {
       <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>
         <select 
           onChange={(e) => i18n.changeLanguage(e.target.value)} 
-          value={i18n.language}
+          value={i18n.resolvedLanguage || i18n.language.split('-')[0]}
           className="btn-outline"
           style={{ padding: '0.3rem 0.6rem', fontSize: '0.8rem' }}
         >
